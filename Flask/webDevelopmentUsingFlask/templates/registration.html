@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Register</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #1f3c88, #2456a6, #3b82f6);
+      }
+
+      .container {
+        width: 420px;
+        padding: 40px;
+        border-radius: 20px;
+
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(15px);
+
+        color: white;
+
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+      }
+
+      .logo {
+        text-align: center;
+        font-size: 40px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        letter-spacing: 3px;
+      }
+
+      .logo span {
+        color: #00d4ff;
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .input-box {
+        margin-bottom: 18px;
+      }
+
+      .input-box input {
+        width: 100%;
+        padding: 14px;
+
+        border: none;
+        border-radius: 8px;
+
+        outline: none;
+
+        font-size: 15px;
+      }
+
+      .password {
+        position: relative;
+      }
+
+      .password span {
+        position: absolute;
+
+        right: 15px;
+        top: 15px;
+
+        color: #444;
+
+        cursor: pointer;
+
+        font-size: 14px;
+      }
+
+      button {
+        width: 100%;
+
+        padding: 15px;
+
+        border: none;
+
+        border-radius: 8px;
+
+        background: #00c6ff;
+
+        color: white;
+
+        font-size: 17px;
+
+        cursor: pointer;
+
+        transition: 0.3s;
+      }
+
+      button:hover {
+        background: #008cff;
+      }
+
+      .error {
+        color: #ffb3b3;
+
+        text-align: center;
+
+        margin-top: 12px;
+
+        display: none;
+      }
+
+      .login {
+        margin-top: 25px;
+
+        text-align: center;
+      }
+
+      .login a {
+        color: #ffd700;
+
+        text-decoration: none;
+
+        font-weight: bold;
+      }
+
+      .login a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="logo">NLP <span>APP</span></div>
+      <h2>Create Account</h2>
+      {%if message%}
+            <p style="color: rgb(159, 26, 26);">{{message}}</p>
+        {%endif%}
+        <!-- agar koi confidential chej server p bhejna hai toh post use kro nhi toh get -->
+      <form method="post" action="/perform_registration" onsubmit="return validateForm();">
+        <div class="input-box">
+          <input name="username" type="text" placeholder="Full Name" required />
+        </div>
+
+        <div class="input-box">
+          <input name="useremail" type="email" placeholder="Email Address" required />
+        </div>
+
+        <div class="input-box password">
+          <input name="userpassword" type="password" id="pass" placeholder="Password" required />
+
+          <span onclick="toggle1()">Show</span>
+        </div>
+
+        <div class="input-box password">
+          <input
+            type="password"
+            id="cpass"
+            placeholder="Confirm Password"
+            required
+          />
+
+          <span onclick="toggle2()">Show</span>
+        </div>
+
+        <button>Register</button>
+
+        <div class="error" id="error">Passwords do not match!</div>
+      </form>
+
+      <div class="login">
+        Already have an account?
+
+        <a href="/"> Login Here </a>
+      </div>
+    </div>
+
+    <script>
+      function toggle1() {
+        let p = document.getElementById("pass");
+
+        if (p.type === "password") p.type = "text";
+        else p.type = "password";
+      }
+
+      function toggle2() {
+        let p = document.getElementById("cpass");
+
+        if (p.type === "password") p.type = "text";
+        else p.type = "password";
+      }
+
+      function validateForm() {
+        let p = document.getElementById("pass").value;
+        let cp = document.getElementById("cpass").value;
+
+        if (p != cp) {
+          document.getElementById("error").style.display = "block";
+
+          return false;
+        }
+
+        return true;
+      }
+    </script>
+  </body>
+</html>
